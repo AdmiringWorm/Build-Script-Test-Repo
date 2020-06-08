@@ -1,0 +1,26 @@
+image:
+  - Ubuntu
+  - Visual Studio 2019
+
+pull_requests:
+  do_not_increment_build_number: true
+skip_branch_with_pr: true
+matrix:
+  fast_finish: true
+environment:
+  APPVEYOR_YML_DISABLE_PS_LINUX: true
+  GITHUB_TOKEN:
+    secure: 3bqzyVjmzE137kZ0lmMBKqM725nQd0hKAATVeE2trpWaPS+5bOpZfjy6zD5INfjV
+
+install:
+  - sh: sudo apt-get update && sudo apt-get install -y libgit2-dev
+  - sh: mono --version
+  - dotnet --info
+
+build_script:
+  - ps: .\build.ps1 --target=AppVeyor
+  - sh: ./build.sh --target=AppVeyor
+
+cache:
+  - tools -> build.config,.build\tools_addins.cake
+  - .dotnet -> build.config

@@ -1,0 +1,26 @@
+name: Close Milestones
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  build:
+    runs-on: windows-latest
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup .NET Core 3.1
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: 3.1.101
+      - name: Build with cake
+        uses: cake-build/cake-action@v1
+        with:
+          script-path: setup.cake
+          target: Close-Milestones
+          verbosity: Diagnostic
+          cake-version: 0.37.0
+          cake-bootstrap: true
