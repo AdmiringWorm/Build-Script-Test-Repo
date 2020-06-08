@@ -30,6 +30,7 @@ issue-labels-include:
   - Bug
   - Documentation
   - Feature
+  - Enhancement
   - Improvement
 issue-labels-exclude:
   - Build
