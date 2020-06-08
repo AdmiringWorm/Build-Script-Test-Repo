@@ -2,8 +2,6 @@ name: Build
 
 on:
   push:
-    tags-ignore:
-      - "*.*"
   pull_request:
     types: [opened, synchronize, reopened]
 
@@ -15,17 +13,17 @@ jobs:
         os: [windows-latest] # Future plans on ubuntu and macos, but currently not possible
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v2.2.0
       - name: Setup .NET Core 3.1
-        uses: actions/setup-dotnet@v1
+        uses: actions/setup-dotnet@v1.5.0
         with:
-          dotnet-version: 3.1.300
+          dotnet-version: 3.1.x
       - name: Setup .NET Core 2.1
-        uses: actions/setup/dotnet@v1
+        uses: actions/setup-dotnet@v1.5.0
         with:
-          dotnet-version: 2.1.806
+          dotnet-version: 2.1.x
       - name: Build with cake
-        uses: cake-build/cake-action@v1
+        uses: cake-build/cake-action@v1.1.1
         with:
           script-path: setup.cake
           target: AppVeyor # This is just for testing
