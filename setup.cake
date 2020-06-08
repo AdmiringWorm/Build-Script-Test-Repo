@@ -1,4 +1,4 @@
-#load "./.build/*.cake"
+#load "./build/*.cake"
 
 
 var target = Argument("target", "Default");
