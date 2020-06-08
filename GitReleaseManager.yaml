@@ -1,7 +1,7 @@
 create:
   include-footer: true
   footer-heading: Where to get it
-  footer-content: |-
+  footer-content: >-
     You can download this release from [chocolatey](https://chocolatey.org/packages/codecov/{milestone}),
     [nuget](https://nuget.org/packages/Codecov/{milestone})
     or as a [dotnet tool](https://nuget.org/packages/Codecov.Tool/{milestone})
