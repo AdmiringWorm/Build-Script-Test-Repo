@@ -1,3 +1,6 @@
+var owner = "AdmiringWorm";
+var repo = "Build-Script-Test-Repo";
+
 var createReleaseNotesTask = Task("Create-MilestoneReleaseNotes")
     .WithCriteria(() => HasEnvironmentVariable("GITHUB_TOKEN"))
     .WithCriteria(() => BuildSystem.GitHubActions.IsRunningOnGitHubActions)
@@ -6,8 +9,6 @@ var createReleaseNotesTask = Task("Create-MilestoneReleaseNotes")
     .Does<BuildVersion>((buildVersion) =>
 {
     var token = EnvironmentVariable("GITHUB_TOKEN");
-    var owner = "codecov";
-    var repo = "codecov-exe";
 
     GitReleaseManagerCreate(token, owner, repo, new GitReleaseManagerCreateSettings {
         Milestone = buildVersion.MajorMinorPatch,
@@ -40,8 +41,6 @@ var uploadReleaseArtifactsTask = Task("Upload-ReleaseArtifacts")
 
     var files = string.Join(',', filesArr.Select(a => a.ToString()));
     var token = EnvironmentVariable("GITHUB_TOKEN");
-    var owner = "codecov";
-    var repo = "codecov-exe";
 
     GitReleaseManagerAddAssets(token, owner, repo, BuildSystem.AppVeyor.Environment.Repository.Tag.Name, files);
 });
@@ -51,8 +50,6 @@ var closeMilestoneTask = Task("Close-Milestones")
     .Does(() =>
 {
     var token = EnvironmentVariable("GITHUB_TOKEN");
-    var owner = "codecov";
-    var repo = "codecov-exe";
 
     GitReleaseManagerClose(token, owner, repo, BuildSystem.GitHubActions.Environment.Workflow.Ref);
 });
