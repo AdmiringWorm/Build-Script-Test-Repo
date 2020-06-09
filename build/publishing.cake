@@ -28,6 +28,10 @@ var createTagTask = Task("Create-Tag")
     }
 
     StartProcess("git", $"tag {buildVersion.SemVersion} --sign --message \"{message}\"");
+
+    if (HasArgument("push")) {
+        StartProcess("git", $"push --follow-tags");
+    }
 });
 
 var uploadReleaseArtifactsTask = Task("Upload-ReleaseArtifacts")
@@ -47,6 +51,7 @@ var uploadReleaseArtifactsTask = Task("Upload-ReleaseArtifacts")
 
 var closeMilestoneTask = Task("Close-Milestones")
     .WithCriteria(() => HasEnvironmentVariable("GITHUB_TOKEN"))
+    .WithCriteria(() => BuildSystem.GitHubActions.IsRunningOnGitHubActions)
     .Does(() =>
 {
     var token = EnvironmentVariable("GITHUB_TOKEN");
