@@ -63,3 +63,15 @@ var closeMilestoneTask = Task("Close-Milestones")
 
     GitReleaseManagerClose(token, owner, repo, tag);
 });
+
+var publishReleaseTask = Task("Publish-Release")
+    .WithCriteria(() => HasEnvironmentVariable("GITHUB_TOKEN"))
+    .WithCriteria(() => BuildSystem.AppVeyor.IsRunningOnAppVeyor)
+    .WithCriteria(() => BuildSystem.AppVeyor.Environment.Repository.Tag.IsTag)
+    .IsDependentOn(uploadReleaseArtifactsTask)
+    .Does<BuildVersion>((buildVersion) =>
+{
+    var token = EnvironmentVariable("GITHUB_TOKEN");
+
+    GitReleaseManagerPublish(token, owner, repo, BuildSystem.AppVeyor.Environment.Repository.Tag.Name);
+});
