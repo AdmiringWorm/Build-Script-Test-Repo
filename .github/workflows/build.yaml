@@ -10,7 +10,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [windows-latest] # Future plans on ubuntu and macos, but currently not possible
+        os: [windows-latest, ubuntu-latest, macos-latest] # Future plans on ubuntu and macos, but currently not possible
 
     steps:
       - uses: actions/checkout@v2.2.0
