@@ -50,6 +50,11 @@ var closeMilestoneTask = Task("Close-Milestones")
     .Does(() =>
 {
     var token = EnvironmentVariable("GITHUB_TOKEN");
+    string tag = BuildSystem.GitHubActions.Environment.Workflow.Ref;
+    int index = tag.LastIndexOf('/');
+    if (index > -1) {
+        tag = tag.Substring(index+1);
+    }
 
-    GitReleaseManagerClose(token, owner, repo, BuildSystem.GitHubActions.Environment.Workflow.Ref);
+    GitReleaseManagerClose(token, owner, repo, tag);
 });
