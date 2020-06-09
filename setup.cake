@@ -7,6 +7,6 @@ Task("Default");
 
 Task("AppVeyor")
     .IsDependentOn("Default")
-    .IsDependentOn(uploadReleaseArtifactsTask);
+    .IsDependentOn(publishReleaseTask);
 
 RunTarget(target);
