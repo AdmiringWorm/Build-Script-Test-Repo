@@ -33,6 +33,12 @@ jobs:
         with:
           ref: '${{ github.event.inputs.branch }}'
           fetch-depth: 0
+      - name: Create release branch ${{ github.event.inputs.version }}
+        uses: peterjgrainger/action-create-branch@2.0.1
+        with:
+          branch: release/${{ github.event.inputs.version }}
     # Runs a single command using the runners shell
       - name: Send greeting
-        run: echo "I would create the branch 'release/${{ github.event.inputs.version }}"
+        run: |
+          echo "I would create the branch 'release/${{ github.event.inputs.version }}"
+          git branch
