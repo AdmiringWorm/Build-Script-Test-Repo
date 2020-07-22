@@ -41,4 +41,4 @@ jobs:
         run: git switch -c release/${{ github.event.inputs.version }}
     # Runs a single command using the runners shell
       - name: Crete release notes
-        run: ./build.sh --target=Create-MilestoneReleaseNotes
+        run: ./build.sh --target=Create-MilestoneReleaseNotes --verbosity=Diagnostic
