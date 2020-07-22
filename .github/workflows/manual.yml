@@ -40,7 +40,5 @@ jobs:
       - name: Create release branch ${{ github.event.inputs.version }}
         run: git switch -c release/${{ github.event.inputs.version }}
     # Runs a single command using the runners shell
-      - name: Send greeting
-        run: |
-          echo "I would create the branch 'release/${{ github.event.inputs.version }}"
-          git branch
+      - name: Crete release notes
+        run: ./build.sh --target=Create-MilestoneReleaseNotes
